@@ -1,8 +1,8 @@
 #include "apriltag_ros/apriltag_detector_component.h"
 
+#include <cv_bridge/cv_bridge.h>
 #include <apriltag_msgs/msg/apriltag_array_stamped.hpp>
 #include <boost/thread/lock_guard.hpp>
-#include <cv_bridge/cv_bridge.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
@@ -24,11 +24,11 @@ ApriltagDetectorComponent::ApriltagDetectorComponent(
                               std::bind(&ApriltagDetectorComponent::imageCb,
                                         this, std::placeholders::_1),
                               "raw", image_qos);
-  int type = declare_parameter("detector", 0);
-  int family = declare_parameter("tag_family", 0);
-  int decimate = declare_parameter("decimate", 1);
-  int nthreads = declare_parameter("nthreads", 1);
-  int black_border_width = declare_parameter("black_border_width", 1);
+  const int type = declare_parameter("detector", 0);
+  const int family = declare_parameter("tag_family", 0);
+  const int decimate = declare_parameter("decimate", 1);
+  const int nthreads = declare_parameter("nthreads", 1);
+  const int black_border_width = declare_parameter("black_border_width", 1);
   RCLCPP_INFO_STREAM(get_logger(), "detector type: (MIT=0, UMICH=1): " << type);
   RCLCPP_INFO_STREAM(get_logger(),
                      "tag family: (0=36h11, 1=25h9, 2=16h5): " << family);
@@ -119,6 +119,6 @@ void ApriltagDetectorComponent::imageCb(
   }
 }
 
-} // namespace apriltag_ros
+}  // namespace apriltag_ros
 
 RCLCPP_COMPONENTS_REGISTER_NODE(apriltag_ros::ApriltagDetectorComponent)
