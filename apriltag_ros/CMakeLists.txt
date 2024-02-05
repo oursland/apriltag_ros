@@ -20,6 +20,7 @@ set(ament_dependencies
   "image_transport"
   "cv_bridge"
   "rclcpp"
+  "rclcpp_components"
   )
 foreach(pkg ${ament_dependencies})
   find_package(${pkg} REQUIRED)
@@ -37,7 +38,7 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE include)
 
-# component (like ROS1 nodelet) library 
+# component (like ROS1 nodelet) library
 add_library(apriltag_detector_component SHARED src/apriltag_detector_component.cpp)
 target_link_libraries(apriltag_detector_component ${PROJECT_NAME} opencv_core)
 
